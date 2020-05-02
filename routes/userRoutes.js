@@ -7,11 +7,11 @@ const {
 } = require('./../controllers/userControllers');
 
 const {
-  signUp,
-  login,
-  forgotPassword,
-  resetPassword,
-  updatePassword
+  signUpUser,
+  loginUser,
+  forgotPasswordUser,
+  resetPasswordUser,
+  updatePasswordUser
 } = require('./../controllers/userAuthController');
 const { protectRoutes } = require('../controllers/middlewares/protectRoutes');
 
@@ -19,15 +19,15 @@ const router = express.Router();
 
 router.get('/', allUsers);
 
-router.post('/signup', signUp);
+router.post('/signup', signUpUser);
 
-router.post('/login', login);
+router.post('/login', loginUser);
 
 // router.get('/admin').get(protectRoutes, admin);
 
-router.post('/forgotPassword', forgotPassword);
-router.patch('/resetPassword/:token', resetPassword);
-router.patch('/updatePassword', protectRoutes, updatePassword);
+router.post('/forgotPassword', forgotPasswordUser);
+router.patch('/resetPassword/:token', resetPasswordUser);
+router.patch('/updatePassword', protectRoutes, updatePasswordUser);
 
 router.patch('/updateMe', protectRoutes, updateMe);
 router.delete('/deactiveMe', protectRoutes, deleteMe);
