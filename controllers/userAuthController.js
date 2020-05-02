@@ -70,15 +70,13 @@ const forgotPassword = catchAsync(async (req, res, next) => {
     const resetToken = user.createResetPasswordToken();
     await user.save({ validateBeforeSave: false });
 
-    // send it to the user email
+    // create resetUrl and send resetToken to the user's email
+    // to reset password
     const resetURL = `${req.protocol}://${req.get(
       'host'
     )}/api/vi/users/resetPassword/${resetToken}`;
 
-    // const message = `Forgot your password? Submit a PATCH request with
-    // your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password,
-    //  please ignore this email!`;
-
+    // send email
     await new Email(user, resetURL).sendPasswordReset();
 
     res.status(200).json({
@@ -86,6 +84,8 @@ const forgotPassword = catchAsync(async (req, res, next) => {
       message: 'Token sent to the email '
     });
   } catch (error) {
+    // below properties get their value when invoke user.createResetPasswordToken()
+    // if error happen we have to change their value to undefined
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
     await user.save({ validateBeforeSave: false });
@@ -97,14 +97,16 @@ const forgotPassword = catchAsync(async (req, res, next) => {
 });
 
 const resetPassword = catchAsync(async (req, res, next) => {
-  // get user by token
+  // generate random string to define a token
   const hashedToken = crypto
     .createHash('sha256')
     .update(req.params.token)
     .digest('hex');
-
+  // get user by token
   const user = await User.findOne({
+    // check are hashedToekn and token which generate in model(user) equal?
     resetPasswordToken: hashedToken,
+    // check does token expire ?
     resetPasswordExpires: { $gt: Date.now() }
   });
   if (!user) return next(new AppError('Token is invalid or has expired', 400));
@@ -115,7 +117,7 @@ const resetPassword = catchAsync(async (req, res, next) => {
   user.resetPasswordExpires = undefined;
   user.changedPasswordAt = Date.now();
   await user.save();
-  // generate new jwttoken
+  // generate new jwt token
   createAndSendToken(user, res, 'success');
 });
 
@@ -123,6 +125,7 @@ const updatePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id);
   if (!user) throw new Error('please login');
   const isCorrect = await user.isPasswordCorrect(
+    // for update password you must input old password
     req.body.currentPassword,
     user.password
   );
