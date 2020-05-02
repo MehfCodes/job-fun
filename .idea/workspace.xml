@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9f941eaf-eb21-4940-b0d4-312d3e39113e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectId" id="1YBQxa5x2F6gW2im5dXkrSrUQcD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.linters.configure.manually.selectedeslint" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.NodeInterpreter" value="project" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9f941eaf-eb21-4940-b0d4-312d3e39113e" name="Default Changelist" comment="" />
+      <created>1582413757315</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582413757315</updated>
+      <workItem from="1582413766893" duration="248000" />
+      <workItem from="1582414087301" duration="316000" />
+      <workItem from="1582549309385" duration="4999000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="241" y="169" width="719" height="441" key="EditFileWatcherDialog" timestamp="1582551130853">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="241" y="169" width="719" height="441" key="EditFileWatcherDialog/0.27.1366.741@0.27.1366.741" timestamp="1582551130853" />
+    <state x="389" y="150" width="424" height="480" key="FileChooserDialogImpl" timestamp="1582555222917">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="389" y="150" width="424" height="480" key="FileChooserDialogImpl/0.27.1366.741@0.27.1366.741" timestamp="1582555222917" />
+    <state x="147" y="38" width="1022" height="741" key="SettingsEditor" timestamp="1582555531438">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="147" y="38" key="SettingsEditor/0.27.1366.741@0.27.1366.741" timestamp="1582555531438" />
+    <state x="84" y="27" width="1022" height="741" key="SettingsEditor/49.27.1317.741@49.27.1317.741" timestamp="1582414338006" />
+    <state x="412" y="133" width="540" height="524" key="StructurePopup" timestamp="1582549436644">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="412" y="133" width="540" height="524" key="StructurePopup/0.27.1366.741@0.27.1366.741" timestamp="1582549436644" />
+  </component>
+</project>
