@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const User = require('./../models/userModel');
 const AppError = require('./../utils/appError');
 const Email = require('./../utils/email');
 const catchAsync = require('./../utils/catchAsync');
@@ -31,31 +30,17 @@ function createAndSendToken(user, res, status) {
     }
   });
 }
-
 const signUp = Model => {
   return catchAsync(async (req, res) => {
-    switch (Model) {
-      case User:
-        const newUser = await Model.create({
-          username: req.body.username,
-          email: req.body.email,
-          password: req.body.password,
-          passwordConfirm: req.body.passwordConfirm,
-          role: 'user'
-        });
-        createAndSendToken(newUser, res, 'success');
-        // TODO : send welcome message to user email with user's profile url
-
-        break;
-      default:
-        break;
-    }
+    const newUser = await Model.create(req.body);
+    createAndSendToken(newUser, res, 'success');
+    // TODO : send welcome message to user email with user's profile url
   });
 };
 const login = Model => {
   return catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
-
+    //
     const user = await Model.findOne({ email });
     if (!user) {
       return next(new AppError('user with this email not found ', 404));
@@ -68,6 +53,7 @@ const login = Model => {
     }
   });
 };
+
 const forgotPassword = Model => {
   return catchAsync(async (req, res, next) => {
     let user;
