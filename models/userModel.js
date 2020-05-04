@@ -26,14 +26,14 @@ const userSchema = new mongoose.Schema({
       message: 'please enter correct email address'
     }
   },
-  role: {
-    type: String,
-    enum: {
-      values: ['master', 'user', 'guest'],
-      message: 'you must choose between "admin" "user"  .'
-    },
-    required: [true, 'user must have role']
-  },
+  // role: {
+  //   type: String,
+  //   enum: {
+  //     values: ['master', 'user', 'guest'],
+  //     message: 'you must choose between "admin" "user"  .'
+  //   },
+  //   required: [true, 'user must have role']
+  // },
   password: {
     type: String,
     required: [true, 'password is require'],

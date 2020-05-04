@@ -5,25 +5,28 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: [true, 'you must choose a title for company']
   },
-  website: {
+  website: String,
+  email: {
     type: String,
     validate: {
       validator(v) {
         return isEmail(v);
       },
       message: 'type of inputed email is not correct'
-    }
+    },
+    unique: [true, 'this email is already existing']
   },
-  companyPhoneNumber: {
+  phoneNumber: {
     type: String,
     required: [true, 'company phone number is require'],
-    length: [11, 'the length of phone number must be 11']
+    length: [11, 'the length of phone number must be 11'],
+    unique: [true, 'this phone number is  already existing']
   },
   category: {
     type: String,
     required: [true, 'you must at least choose one category']
   },
-  NumberOfPersonnel: {
+  numberOfPersonnel: {
     type: String,
     required: [true, 'you must fill this field']
   },
