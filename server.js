@@ -30,9 +30,9 @@ mongoose
 const port = process.env.NODE_ENV === 'test' ? 5000 : process.env.PORT;
 // eslint-disable-next-line no-console
 // const server1 =
-app.listen(8000, () => {
+app.listen(3000, () => {
   // eslint-disable-next-line no-console
-  console.log(`server started on 8000 ....`);
+  console.log(`server started on 3000 ....`);
 });
 
 // module.exports = server1;
