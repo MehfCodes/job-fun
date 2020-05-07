@@ -9,6 +9,7 @@ const {
 const {
   signUpUser,
   loginUser,
+  logoutUser,
   forgotPasswordUser,
   resetPasswordUser,
   updatePasswordUser
@@ -32,5 +33,5 @@ router.patch('/updatePassword', protectRoutes(User), updatePasswordUser);
 router.patch('/updateMe', protectRoutes(User), updateMe);
 router.delete('/deactiveMe', protectRoutes(User), deleteMe);
 router.route('/:id').get(getUser);
-
+router.delete('/logout', protectRoutes(User), logoutUser);
 module.exports = router;

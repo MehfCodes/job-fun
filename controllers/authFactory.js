@@ -53,7 +53,12 @@ const login = Model => {
     }
   });
 };
-
+const logout = () => {
+  return (req, res, next) => {
+    res.cookie('jwt', 'logout');
+    res.status(200).json({ status: 'logout succesful' });
+  };
+};
 const forgotPassword = Model => {
   return catchAsync(async (req, res, next) => {
     let user;
@@ -143,6 +148,7 @@ const updatePassword = Model => {
 module.exports = {
   signUp,
   login,
+  logout,
   forgotPassword,
   resetPassword,
   updatePassword

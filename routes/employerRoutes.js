@@ -2,6 +2,7 @@ const express = require('express');
 const {
   signUpCompany,
   loginCompany,
+  logoutCompany,
   forgotPasswordCompany,
   resetPasswordComany,
   updatePasswordCompany
