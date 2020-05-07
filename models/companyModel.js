@@ -47,7 +47,7 @@ const companySchema = new mongoose.Schema({
     minlength: [8, 'password confirm length must be more than 8 character'],
     validate: {
       validator(passwordConfirm) {
-        return (passwordConfirm = this.password);
+        return passwordConfirm === this.password;
       },
       message: 'password confirm is not equal to password'
     }
@@ -70,6 +70,14 @@ companySchema.pre('save', async next => {
 companySchema.methods.isPasswordCorrect = async inputedPass => {
   const isCorrect = await bcrypt.compare(inputedPass, this.password);
   return isCorrect;
+};
+
+companySchema.methods.isPasswordChange = async JWTTimestapm => {
+  if (this.changedPasswordAt) {
+    const timeToInt = parseInt(this.changedPasswordAt.getTime() / 1000, 10);
+    return JWTTimestapm < timeToInt;
+  }
+  return false;
 };
 companySchema.methods.createResetPasswordToken = async () => {
   const resetToken = crypto.randomBytes(16).toString('hex');
