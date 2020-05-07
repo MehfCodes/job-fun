@@ -45,7 +45,7 @@ const login = Model => {
     if (!user) {
       return next(new AppError('user with this email not found ', 404));
     }
-    const isCorrect = await user.isPasswordCorrect(password, user.password);
+    const isCorrect = await user.isPasswordCorrect(password);
     if (!isCorrect) {
       next(new AppError('password not correct ', 403));
     } else {
