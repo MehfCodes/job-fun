@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const companySchema = new mongoose.Schema({
   companyName: {
     type: String,
@@ -33,7 +35,49 @@ const companySchema = new mongoose.Schema({
   companyLogo: {
     type: String,
     default: 'default company logo.jpg'
+  },
+  password: {
+    type: String,
+    required: [true, 'password is require'],
+    minlength: [8, 'password length must be more than 8 character']
+  },
+  passwordConfirm: {
+    type: String,
+    required: [true, 'password confirm is require'],
+    minlength: [8, 'password confirm length must be more than 8 character'],
+    validate: {
+      validator(passwordConfirm) {
+        return (passwordConfirm = this.password);
+      },
+      message: 'password confirm is not equal to password'
+    }
+  },
+  changedPasswordAt: Date,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
+});
+
+companySchema.pre('save', async next => {
+  if (!this.isModified('password')) next();
+  else {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    this.passwordConfirm = undefined;
+    next();
   }
 });
 
+companySchema.methods.isPasswordCorrect = async inputedPass => {
+  const isCorrect = await bcrypt.compare(inputedPass, this.password);
+  return isCorrect;
+};
+companySchema.methods.createResetPasswordToken = async () => {
+  const resetToken = crypto.randomBytes(16).toString('hex');
+  this.resetPasswordToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+  this.resetPasswordExpires = Date.now() + 10 * 60 * 1000;
+  return resetToken;
+};
 module.exports = mongoose.model('company', companySchema);
