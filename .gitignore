@@ -1,5 +1,7 @@
 node_modules
 tests
+tests/integeration
+tests/unit
 config.env
 .rest
 .vscode

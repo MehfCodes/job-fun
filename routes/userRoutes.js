@@ -13,7 +13,9 @@ const {
   resetPasswordUser,
   updatePasswordUser
 } = require('./../controllers/userAuthController');
-const { protectRoutes } = require('../controllers/middlewares/protectRoutes');
+const {
+  protectUserRoutes
+} = require('../controllers/middlewares/protectRoutes');
 
 const router = express.Router();
 
@@ -27,10 +29,10 @@ router.post('/login', loginUser);
 
 router.post('/forgotPassword', forgotPasswordUser);
 router.patch('/resetPassword/:token', resetPasswordUser);
-router.patch('/updatePassword', protectRoutes, updatePasswordUser);
+router.patch('/updatePassword', protectUserRoutes, updatePasswordUser);
 
-router.patch('/updateMe', protectRoutes, updateMe);
-router.delete('/deactiveMe', protectRoutes, deleteMe);
+router.patch('/updateMe', protectUserRoutes, updateMe);
+router.delete('/deactiveMe', protectUserRoutes, deleteMe);
 router.route('/:id').get(getUser);
 
 module.exports = router;

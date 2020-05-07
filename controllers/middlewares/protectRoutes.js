@@ -4,7 +4,7 @@ const User = require('./../../models/userModel');
 const AppError = require('./../../utils/appError');
 const catchAsync = require('./../../utils/catchAsync');
 
-const protectRoutes = catchAsync(async (req, res, next) => {
+const protectUserRoutes = catchAsync(async (req, res, next) => {
   // check if token exist ot not
   let token;
 
@@ -38,5 +38,5 @@ const protectRoutes = catchAsync(async (req, res, next) => {
 });
 
 module.exports = {
-  protectRoutes
+  protectUserRoutes
 };
