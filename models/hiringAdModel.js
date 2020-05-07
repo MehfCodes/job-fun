@@ -57,6 +57,11 @@ const hiringAdSchema = new mongoose.Schema({
   tag: {
     type: String,
     required: [true, 'you should specify at least one tag']
+  },
+  company: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: company,
+    required: true
   }
 });
 
