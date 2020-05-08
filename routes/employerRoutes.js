@@ -8,6 +8,7 @@ const {
   updatePassword
 } = require('./../controllers/authFactory');
 const { protectRoutes } = require('./../controllers/middlewares/protectRoutes');
+const { allowedFields } = require('./../controllers/middlewares/user');
 const Company = require('./../models/companyModel');
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.patch('/resetpassword/:token', resetPassword(Company));
 router.patch(
   '/updatepassword',
   protectRoutes(Company),
+  allowedFields,
   updatePassword(Company)
 );
 module.exports = router;

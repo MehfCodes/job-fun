@@ -26,12 +26,12 @@ function getAll(Model) {
   });
 }
 
-function getOne(Model, dataType = '') {
+function getOne(Model, type = '') {
   return catchAsync(async (req, res, next) => {
     if (!ObjectId.isValid(req.params.id))
       return next(new AppError('id is not valid', 401));
     const data = await Model.findById(req.params.id);
-    if (!data) return next(new AppError(`${dataType}not found`, 404));
+    if (!data) return next(new AppError(`${type}not found`, 404));
     res.status(200).json({
       status: 'success',
       data: {
@@ -41,14 +41,13 @@ function getOne(Model, dataType = '') {
   });
 }
 
-function updateOne(Model, dataType = '') {
+function updateOne(Model, type = '') {
   return catchAsync(async (req, res, next) => {
-    const data = await Model.findByIdAndUpdate(req.user.id, req.body, {
+    const data = await Model.findByIdAndUpdate(req.user.id, req.newReqObj, {
       new: true,
       runValidators: true
     });
-
-    if (!data) return next(new AppError(`${dataType}not found`, 404));
+    if (!data) return next(new AppError(`${type} not found`, 404));
     res.status(200).json({
       status: 'success',
       data: {

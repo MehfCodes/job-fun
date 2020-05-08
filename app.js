@@ -29,4 +29,8 @@ app.use('/api/v1/employer', employerRoutes);
 //   next(new AppError(`can not find ${req.originalUrl} on this server`), 404);
 // });
 // app.use(handleGlobalError);
+app.use((err, req, res, next) => {
+  //   console.log(err);
+  res.json(err.message);
+});
 module.exports = app;
