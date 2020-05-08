@@ -12,12 +12,7 @@ const allowedFields = (req, res, next) => {
   Object.keys(req.body).forEach(el => {
     if (!notAllowedFields.includes(el)) newReq[el] = req.body[el];
     else {
-      return next(
-        new AppError(
-          `you can not change ${el} directly,please go to /updatePassword`,
-          403
-        )
-      );
+      return next(new AppError(`you can not change ${el} directly`, 403));
     }
   });
 

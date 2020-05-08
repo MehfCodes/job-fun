@@ -20,7 +20,6 @@ router.patch('/resetpassword/:token', resetPassword(Company));
 router.patch(
   '/updatepassword',
   protectRoutes(Company),
-  allowedFields,
   updatePassword(Company)
 );
 module.exports = router;
