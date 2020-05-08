@@ -7,17 +7,6 @@ const hiringAdSchema = new mongoose.Schema({
     required: [true, 'title is require , please enter it'],
     minlength: [5, 'title must be more than 5 characters']
   },
-  // location: {
-  //   type: {
-  //     type: String,
-  //     enum: ['Point'],
-  //     required: [true, 'you must be specify company location']
-  //   },
-  //   coordinates: {
-  //     type: [Number],
-  //     required: true
-  //   }
-  // },
   salary: {
     type: String,
     required: false
@@ -62,6 +51,14 @@ const hiringAdSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'company',
     required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now()
+  },
+  expired: {
+    type: Boolean,
+    default: false
   }
 });
 
