@@ -17,9 +17,11 @@ const protectRoutes = Model => {
       [, token] = req.headers.authorization.split(' ');
     } else if (req.cookies.jwt) {
       token = req.cookies.jwt;
+    } else {
+      return next(new AppError('there is not token', 401));
     }
 
-    if (!token) return next(new AppError('there is not token', 401));
+    // if (!token) return next(new AppError('there is not token', 401));
 
     // verification token
     const decode = await promisify(jwt.verify)(token, process.env.SECRET_KEY);

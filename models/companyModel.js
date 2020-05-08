@@ -3,7 +3,7 @@ const { isEmail } = require('validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const companySchema = new mongoose.Schema({
-  companyName: {
+  name: {
     type: String,
     required: [true, 'you must choose a title for company']
   },
@@ -32,7 +32,7 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: [true, 'you must fill this field']
   },
-  companyLogo: {
+  logo: {
     type: String,
     default: 'default company logo.jpg'
   },
@@ -57,7 +57,7 @@ const companySchema = new mongoose.Schema({
   resetPasswordExpires: Date
 });
 
-companySchema.pre('save', async next => {
+companySchema.pre('save', async function(next) {
   if (!this.isModified('password')) next();
   else {
     const salt = await bcrypt.genSalt(10);
@@ -67,19 +67,19 @@ companySchema.pre('save', async next => {
   }
 });
 
-companySchema.methods.isPasswordCorrect = async inputedPass => {
+companySchema.methods.isPasswordCorrect = async function(inputedPass) {
   const isCorrect = await bcrypt.compare(inputedPass, this.password);
   return isCorrect;
 };
 
-companySchema.methods.isPasswordChange = async JWTTimestapm => {
+companySchema.methods.isPasswordChange = function(JWTTimestapm) {
   if (this.changedPasswordAt) {
     const timeToInt = parseInt(this.changedPasswordAt.getTime() / 1000, 10);
     return JWTTimestapm < timeToInt;
   }
   return false;
 };
-companySchema.methods.createResetPasswordToken = async () => {
+companySchema.methods.createResetPasswordToken = async function() {
   const resetToken = crypto.randomBytes(16).toString('hex');
   this.resetPasswordToken = crypto
     .createHash('sha256')

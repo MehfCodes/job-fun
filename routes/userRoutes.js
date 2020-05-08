@@ -7,31 +7,25 @@ const {
 } = require('./../controllers/userControllers');
 
 const {
-  signUpUser,
-  loginUser,
-  logoutUser,
-  forgotPasswordUser,
-  resetPasswordUser,
-  updatePasswordUser
-} = require('./../controllers/userAuthController');
+  signUp,
+  login,
+  logout,
+  forgotPassword,
+  resetPassword,
+  updatePassword
+} = require('./../controllers/authFactory');
 const { protectRoutes } = require('../controllers/middlewares/protectRoutes');
 const User = require('./../models/userModel');
 const router = express.Router();
 
 router.get('/', allUsers);
-
-router.post('/signup', signUpUser);
-
-router.post('/login', loginUser);
-
-// router.get('/admin').get(protectRoutes, admin);
-
-router.post('/forgotPassword', forgotPasswordUser);
-router.patch('/resetPassword/:token', resetPasswordUser);
-router.patch('/updatePassword', protectRoutes(User), updatePasswordUser);
-
+router.post('/signup', signUp(User));
+router.post('/login', login(User));
+router.post('/forgotPassword', forgotPassword(User));
+router.patch('/resetPassword/:token', resetPassword(User));
+router.patch('/updatePassword', protectRoutes(User), updatePassword(User));
 router.patch('/updateMe', protectRoutes(User), updateMe);
 router.delete('/deactiveMe', protectRoutes(User), deleteMe);
-router.route('/:id').get(getUser);
-router.delete('/logout', protectRoutes(User), logoutUser);
+router.get('/:id', getUser);
+router.delete('/logout', protectRoutes(User), logout);
 module.exports = router;

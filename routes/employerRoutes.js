@@ -1,14 +1,24 @@
 const express = require('express');
 const {
-  signUpCompany,
-  loginCompany,
-  logoutCompany,
-  forgotPasswordCompany,
-  resetPasswordComany,
-  updatePasswordCompany
-} = require('./../controllers/companyAuthController');
-
+  signUp,
+  login,
+  logout,
+  forgotPassword,
+  resetPassword,
+  updatePassword
+} = require('./../controllers/authFactory');
+const { protectRoutes } = require('./../controllers/middlewares/protectRoutes');
+const Company = require('./../models/companyModel');
 const router = express.Router();
 
-router.post('/signup', signUpCompany);
+router.post('/signup', signUp(Company));
+router.post('/login', login(Company));
+router.delete('/logout', protectRoutes(Company), logout);
+router.post('/forgotpassword', forgotPassword(Company));
+router.patch('/resetpassword/:token', resetPassword(Company));
+router.patch(
+  '/updatepassword',
+  protectRoutes(Company),
+  updatePassword(Company)
+);
 module.exports = router;

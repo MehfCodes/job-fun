@@ -60,7 +60,7 @@ const hiringAdSchema = new mongoose.Schema({
   },
   company: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: company,
+    ref: 'company',
     required: true
   }
 });
