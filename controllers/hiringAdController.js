@@ -10,20 +10,31 @@ const { ObjectId } = require('mongoose').Types;
 const APIFeatures = require('./../utils/apiFeatures');
 const catchAsync = require('./../utils/catchAsync');
 const allhiringAd = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(HiringAd.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .pagination();
+  if (req.query) {
+    const features = new APIFeatures(HiringAd.find(), req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .pagination();
 
-  const ads = await features.query;
-  res.status(200).json({
-    status: 'success',
-    results: data.length,
-    data: {
-      ads
-    }
-  });
+    const ads = await features.query;
+    res.status(200).json({
+      status: 'success',
+      results: data.length,
+      data: {
+        ads
+      }
+    });
+  } else {
+    const ads = await HiringAd.find();
+    res.status(200).json({
+      status: 'success',
+      results: data.length,
+      data: {
+        ads
+      }
+    });
+  }
 });
 
 const getHiringAd = catchAsync(async (req, res, next) => {
@@ -41,17 +52,23 @@ const getHiringAd = catchAsync(async (req, res, next) => {
 
 // only company can create update and delete hiring ads
 const createHiringAd = catchAsync(async (req, res, next) => {
-  const data = await HiringAd.create(req.body);
-  res.status(200).json({
-    status: 'success',
-    data: {
-      data
-    }
-  });
+  if (req.user) {
+    const data = await HiringAd.create(req.body);
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data
+      }
+    });
+  } else {
+    return next(
+      new AppError('you have not pernision to access this route', 403)
+    );
+  }
 });
 
 const updateHiringAd = catchAsync(async (req, res, next) => {
-  const data = await HiringAd.findByIdAndUpdate(req.params.id, req.body, {
+  const data = await HiringAd.findByIdAndUpdate(req.user.id, req.body, {
     new: true,
     runValidators: true
   });
@@ -66,7 +83,7 @@ const updateHiringAd = catchAsync(async (req, res, next) => {
 });
 
 const deleteHiringAd = catchAsync(async (req, res, next) => {
-  const data = await HiringAd.findByIdAndDelete(req.params.id);
+  const data = await HiringAd.findByIdAndDelete(req.user.id);
   res.status(200).json({
     status: 'success',
     data: {
