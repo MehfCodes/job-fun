@@ -2,6 +2,7 @@ const { ObjectId } = require('mongoose').Types;
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
+
 function getAll(Model) {
   return catchAsync(async (req, res, next) => {
     let data;
@@ -80,4 +81,25 @@ function deleteOne(Model) {
     });
   });
 }
-module.exports = { getAll, getOne, updateOne, createOne, deleteOne };
+function deActiveOne(Model, type = '') {
+  return catchAsync(async (req, res, next) => {
+    const data = await Model.findByIdAndUpdate(req.user.id, {
+      isActive: false
+    });
+    if (!data) return next(new AppError(`${type} not found`, 404));
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data
+      }
+    });
+  });
+}
+module.exports = {
+  getAll,
+  getOne,
+  updateOne,
+  createOne,
+  deleteOne,
+  deActiveOne
+};
