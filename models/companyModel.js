@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
+
 const companySchema = new mongoose.Schema({
   name: {
     type: String,
@@ -52,6 +53,10 @@ const companySchema = new mongoose.Schema({
       message: 'password confirm is not equal to password'
     }
   },
+  isActive: {
+    type: Boolean,
+    default: true
+  },
   changedPasswordAt: Date,
   resetPasswordToken: String,
   resetPasswordExpires: Date
@@ -65,6 +70,11 @@ companySchema.pre('save', async function(next) {
     this.passwordConfirm = undefined;
     next();
   }
+});
+
+companySchema.pre(/^find/, function(next) {
+  this.find({ isActive: true });
+  next();
 });
 
 companySchema.methods.isPasswordCorrect = async function(inputedPass) {

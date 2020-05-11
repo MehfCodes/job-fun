@@ -1,9 +1,11 @@
 const AppError = require('./../../utils/appError');
+
 const allowedFields = (req, res, next) => {
   const newReq = {};
   const notAllowedFields = [
     'password',
     'passwordConfirm',
+    'isActive',
     'createdAt',
     'changedPasswordAt',
     'resetPasswordToken',
