@@ -16,7 +16,8 @@ const {
 } = require('./../controllers/authFactory');
 const { protectRoutes } = require('../controllers/middlewares/protectRoutes');
 const User = require('./../models/userModel');
-const { allowedFields } = require('./../controllers/middlewares/user');
+const filterReq = require('../controllers/middlewares/filterReq');
+const uploadPhoto = require('./../controllers/middlewares/uploadPhoto');
 
 const router = express.Router();
 
@@ -26,7 +27,13 @@ router.post('/login', login(User));
 router.post('/forgotPassword', forgotPassword(User));
 router.patch('/resetPassword/:token', resetPassword(User));
 router.patch('/updatePassword', protectRoutes(User), updatePassword(User));
-router.patch('/updateMe', protectRoutes(User), allowedFields, updateMe);
+router.patch(
+  '/updateMe',
+  protectRoutes(User),
+  uploadPhoto,
+  filterReq,
+  updateMe
+);
 router.delete('/deactiveMe', protectRoutes(User), deActiveMe);
 router.get('/:id', getUser);
 router.delete('/logout', protectRoutes(User), logout);

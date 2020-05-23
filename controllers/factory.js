@@ -44,7 +44,7 @@ function getOne(Model, type = '') {
 
 function updateOne(Model, type = '') {
   return catchAsync(async (req, res, next) => {
-    const data = await Model.findByIdAndUpdate(req.user.id, req.newReqObj, {
+    const data = await Model.findByIdAndUpdate(req.user.id, req.body, {
       new: true,
       runValidators: true
     });

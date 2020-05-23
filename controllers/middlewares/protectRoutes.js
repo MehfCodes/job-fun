@@ -27,7 +27,7 @@ const protectRoutes = Model => {
     const decode = await promisify(jwt.verify)(token, process.env.SECRET_KEY);
 
     // check if user still exist or not
-    const currentUser = await Model.findById(decode.id);
+    const currentUser = await Model.findById(decode.id).select('-password');
     if (!currentUser) {
       return next(
         new AppError('the user belonging to this token is not exist', 404)

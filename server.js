@@ -16,7 +16,8 @@ mongoose
   .connect(process.env.DB_LOCAL_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
   })
   .then(() => {
     // clear console in production
@@ -27,7 +28,7 @@ mongoose
     console.log('can not connect to database !!!');
   });
 
-const port = process.env.NODE_ENV === 'test' ? 5000 : process.env.PORT;
+const port = process.env.NODE_ENV === 'test' ? 3000 : process.env.PORT;
 // eslint-disable-next-line no-console
 // const server1 =
 app.listen(3000, () => {

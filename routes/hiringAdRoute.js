@@ -8,8 +8,9 @@ const {
   deleteHiringAd
 } = require('./../controllers/hiringAdController');
 const { protectRoutes } = require('./../controllers/middlewares/protectRoutes');
-const { allowedFields } = require('./../controllers/middlewares/user');
+const filterReq = require('../controllers/middlewares/filterReq');
 const Company = require('./../models/companyModel');
+
 const router = express.Router();
 
 router
@@ -20,7 +21,7 @@ router
 router
   .route('/:id')
   .get(getHiringAd)
-  .patch(protectRoutes(Company), allowedFields, updateHiringAd)
+  .patch(protectRoutes(Company), filterReq, updateHiringAd)
   .delete(protectRoutes(Company), deleteHiringAd);
 
 module.exports = router;

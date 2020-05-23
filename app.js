@@ -4,11 +4,11 @@ const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/userRoutes');
 const hiringAd = require('./routes/hiringAdRoute');
 const employerRoutes = require('./routes/employerRoutes');
 const limiter = require('./controllers/middlewares/rateLimit');
-const cookieParser = require('cookie-parser');
 const handleGlobalError = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
@@ -16,6 +16,8 @@ const app = express();
 app.use(helmet());
 app.use('/api', limiter);
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());

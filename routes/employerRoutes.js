@@ -14,7 +14,7 @@ const {
   deActiveCompany
 } = require('./../controllers/companyController');
 const { protectRoutes } = require('./../controllers/middlewares/protectRoutes');
-const { allowedFields } = require('./../controllers/middlewares/user');
+const filterReq = require('../controllers/middlewares/filterReq');
 const Company = require('./../models/companyModel');
 
 const router = express.Router();
@@ -34,7 +34,7 @@ router.get('/:id', getCompany);
 router.patch(
   '/update-company',
   protectRoutes(Company),
-  allowedFields,
+  filterReq,
   updateCompany
 );
 router.delete('/deactive-company', protectRoutes, deActiveCompany);
